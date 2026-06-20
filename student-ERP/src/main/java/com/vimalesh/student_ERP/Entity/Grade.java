@@ -1,9 +1,6 @@
 package com.vimalesh.student_ERP.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +20,9 @@ public class Grade {
     private double marks;
     private double maxMarks;
     private String term;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
 }

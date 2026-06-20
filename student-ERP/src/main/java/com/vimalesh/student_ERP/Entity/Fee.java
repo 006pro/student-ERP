@@ -1,9 +1,7 @@
 package com.vimalesh.student_ERP.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.vimalesh.student_ERP.Entity.Enum.FeeStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +20,12 @@ public class Fee {
     private double amount;
     private LocalDate dueDate;
     private LocalDate paidOn;
+
+
+    @Enumerated(EnumType.STRING)
+    private FeeStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 }

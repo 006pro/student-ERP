@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -20,6 +21,19 @@ public class Student {
     private String parentContact;
     private String address;
     private String photoUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "classroom_id")
+    private ClassRoom classRoom;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Attendance> attendanceRecords;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Grade> grades;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Fee> fees;
 
 
 

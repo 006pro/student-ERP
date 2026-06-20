@@ -1,31 +1,38 @@
 package com.vimalesh.student_ERP.Entity;
 
-import com.vimalesh.student_ERP.Entity.Enum.Role;
+
+import com.vimalesh.student_ERP.Entity.Enum.AttendanceStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+@AllArgsConstructor
+public class Attendance {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
-    private String password;
-    private String oauthProvider;
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private AttendanceStatus status;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "student_id")
     private Student student;
 
-    @OneToOne
-    private Teacher teacher;
+    @ManyToOne
+    @JoinColumn(name = "classroom_id")
+    private ClassRoom classRoom;
+
 }
+
+
+

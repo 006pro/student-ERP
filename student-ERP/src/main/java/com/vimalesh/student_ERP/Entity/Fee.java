@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class Fee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private double amount;
     private LocalDate dueDate;

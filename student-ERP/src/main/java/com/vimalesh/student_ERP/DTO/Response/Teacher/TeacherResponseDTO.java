@@ -1,7 +1,13 @@
 package com.vimalesh.student_ERP.DTO.Response.Teacher;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TeacherResponseDTO {
     private Long id;
     private String name;

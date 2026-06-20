@@ -1,4 +1,4 @@
-package entity;
+package com.vimalesh.student_ERP.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;

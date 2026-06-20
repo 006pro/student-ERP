@@ -1,4 +1,4 @@
-package com.vimalesh.student_ERP.Entity.Enum;
+package com.vimalesh.student_ERP.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

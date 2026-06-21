@@ -18,9 +18,10 @@ public class ClassRoom {
 
     private String name;
     private String section;
+
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    private Teacher teacher;             // class has ONE class-teacher
+    private Teacher teacher;
 
     @OneToMany(mappedBy = "classRoom")
     private List<Student> students;

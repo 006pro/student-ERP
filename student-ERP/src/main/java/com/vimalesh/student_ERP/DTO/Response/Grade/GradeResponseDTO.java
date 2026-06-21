@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GradeResponseDTO {
 
-    private Long id;
+    private int id;
     private String studentName;
     private String subject;
     private double marks;

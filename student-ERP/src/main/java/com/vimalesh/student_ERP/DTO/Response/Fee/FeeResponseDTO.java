@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FeeResponseDTO {
-    private Long id;
+    private int id;
     private String studentName;
     private double amount;
     private LocalDate dueDate;

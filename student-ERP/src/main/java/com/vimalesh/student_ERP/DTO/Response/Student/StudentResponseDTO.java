@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class StudentResponseDTO {
 
 
-    private Long id;
+    private int id;
     private String name;
     private String rollNo;
     private LocalDate dob;

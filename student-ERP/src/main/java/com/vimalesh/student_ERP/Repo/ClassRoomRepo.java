@@ -2,7 +2,9 @@ package com.vimalesh.student_ERP.Repo;
 
 import com.vimalesh.student_ERP.Entity.ClassRoom;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ClassRoomRepo extends CrudRepository<ClassRoom, Integer> {
+@Repository
+public interface ClassRoomRepo extends JpaRepository<ClassRoom, Integer> {
 }

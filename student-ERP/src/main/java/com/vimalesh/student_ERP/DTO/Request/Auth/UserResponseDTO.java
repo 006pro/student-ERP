@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseDTO {
-    private Long id;
+    private int id;
     private String email;
     private String role;
 }

@@ -27,5 +27,5 @@ public class StudentRequestDTO {
     private String address;
 
     @NotNull
-    private Long classRoomId;
+    private int classRoomId;
 }

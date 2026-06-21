@@ -19,24 +19,33 @@ public class StudentService {
     StudentRepo studentRepo;
 
     public StudentResponseDTO createStudent(@Valid StudentRequestDTO dto) {
-      ClassRoom classroom = classRoomRepo.findById(dto.getClassRoomId()).orElseThrow(() -> new RuntimeException("Classroom not found"));
+      ClassRoom classroom = classRoomRepo.findById(dto.getClassRoomId())
+                .orElseThrow(() -> new RuntimeException("Classroom not found with id: " + dto.getClassRoomId()));
+
+        StudentResponseDTO responseDTO = new StudentResponseDTO();
+        return null;
     }
 
     public StudentResponseDTO updateStudent(Long id, @Valid StudentRequestDTO dto) {
+        return null;
     }
 
     public void deleteStudent(Long id) {
     }
 
     public StudentResponseDTO getStudentById(Long id) {
+        return null;
     }
 
     public Page<StudentResponseDTO> getAllStudents(PageRequest of) {
+        return null;
     }
 
     public List<StudentResponseDTO> searchStudents(String keyword) {
+        return List.of();
     }
 
     public List<StudentResponseDTO> getStudentsByClass(Long classRoomId) {
+        return List.of();
     }
 }

@@ -15,5 +15,5 @@ public class ClassRoomRequestDTO {
     @NotBlank
     private String section;
 
-    private Long teacherId;
+    private int teacherId;
 }

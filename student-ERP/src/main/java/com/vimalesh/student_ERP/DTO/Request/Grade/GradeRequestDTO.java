@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class GradeRequestDTO {
 
     @NotNull
-    private Long studentId;
+    private int studentId;
 
     @NotBlank
     private String subject;

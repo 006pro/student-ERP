@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClassRoomResponseDTO {
-    private Long id;
+    private int id;
     private String name;
     private String section;
     private String teacherName;     // flattened

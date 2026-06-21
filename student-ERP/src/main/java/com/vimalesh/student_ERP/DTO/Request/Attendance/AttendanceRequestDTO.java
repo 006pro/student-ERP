@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AttendanceRequestDTO {
     @NotNull
-    private Long studentId;
+    private int studentId;
 
     @NotNull
-    private Long classRoomId;
+    private int classRoomId;
 
     @NotNull
     private LocalDate date;

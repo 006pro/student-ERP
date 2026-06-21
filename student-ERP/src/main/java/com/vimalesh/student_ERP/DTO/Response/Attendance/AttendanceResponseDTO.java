@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AttendanceResponseDTO {
 
-    private Long id;
+    private int id;
     private String studentName;
     private String rollNo;
     private LocalDate date;

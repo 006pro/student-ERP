@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeacherResponseDTO {
-    private Long id;
+    private int id;
     private String name;
     private String email;
     private String phone;

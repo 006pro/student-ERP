@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FeeRequestDTO {
     @NotNull
-    private Long studentId;
+    private int studentId;
 
     @Min(0)
     private double amount;

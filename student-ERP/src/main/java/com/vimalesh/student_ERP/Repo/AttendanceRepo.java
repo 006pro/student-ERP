@@ -25,4 +25,7 @@ public interface AttendanceRepo extends JpaRepository<Attendance, Integer> {
 
     @Query("SELECT COUNT(a) FROM Attendance a WHERE a.student.id = :studentId AND a.status = :attendanceStatus")
     int countByStudentIdAndStatus(int studentId, AttendanceStatus attendanceStatus);
+
+    @Query("SELECT COUNT(a) FROM Attendance a WHERE a.status = :attendanceStatus")
+    int countByStatus(AttendanceStatus attendanceStatus);
 }

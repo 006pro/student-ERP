@@ -13,6 +13,7 @@ import com.vimalesh.student_ERP.Repo.ClassRoomRepo;
 import com.vimalesh.student_ERP.Repo.StudentRepo;
 import com.vimalesh.student_ERP.Util.AttendanceCalculator;
 import jakarta.validation.Valid;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,4 +89,11 @@ public class AttendanceService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public double getOverallAttendancePercentage() {
+        long totalrecords = attendanceRepo.count();
+        int presentrecords = attendanceRepo.countByStatus(AttendanceStatus.PRESENT);
+    return attendanceCalculator.calculatePercentage(presentrecords,(int)totalrecords);
+    }
+
 }

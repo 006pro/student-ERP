@@ -18,6 +18,7 @@ public class AttendanceMapper {
             dto.setStudentName(attendance.getStudent().getName());
             dto.setRollNo(attendance.getStudent().getRollNo());
         }
+
         return dto;
     }
 

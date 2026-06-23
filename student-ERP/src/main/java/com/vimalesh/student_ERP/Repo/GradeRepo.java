@@ -13,4 +13,8 @@ public interface GradeRepo extends JpaRepository<Grade, Integer> {
 
     @Query("SELECT g FROM Grade g WHERE g.student.id = :studentId")
     List<Grade> findAllByStudentId(int studentId);
+
+
+    @Query("SELECT g FROM Grade g WHERE g.student.id = :studentId AND g.term = :term")
+    List<Grade> findAllByStudentIdAndTerm(int studentId, String term);
 }

@@ -53,4 +53,31 @@ public class GradeService {
       response.setGrade(gradeCalculator.calculateGrade(grade.getMarks(), grade.getMaxMarks()));
       return response;
     }
+
+    public void saveBulkGrades(@Valid List<GradeRequestDTO> dtos) {
+         dtos.forEach(this::saveGrade);
+
+    }
+
+    public List<GradeResponseDTO> getGradesByStudentAndTerm(int studentId, String term) {
+        return gradeRepository.findAllByStudentIdAndTerm(studentId , term).stream()
+                .map(g -> {
+                    GradeResponseDTO dto = new GradeResponseDTO();
+                    dto.setGrade(gradeCalculator.calculateGrade(dto.getMarks(), dto.getMaxMarks()));
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public Double calculateAverage(int studentId, String term) {
+       List<Grade> grades = gradeRepository.findAllByStudentIdAndTerm(studentId ,term);
+        if (grades.isEmpty()) return 0.0;
+
+        double totalpercent = grades.stream()
+                .mapToDouble(g -> gradeCalculator.calculatePercentage(g.getMarks(), g.getMaxMarks()))
+                .sum();
+
+             return Math.round(totalpercent / grades.size() * 100) / 100.0;
+
+    }
 }

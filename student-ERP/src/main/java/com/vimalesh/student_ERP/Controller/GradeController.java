@@ -1,42 +1,48 @@
 package com.vimalesh.student_ERP.Controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import com.vimalesh.student_ERP.DTO.Request.Grade.GradeRequestDTO;
+import com.vimalesh.student_ERP.DTO.Response.Grade.GradeResponseDTO;
 import com.vimalesh.student_ERP.Service.GradeService;
-import com.vimalesh.student_ERP.Service.StudentService;
 import jakarta.validation.Valid;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/grades")
-public class GradeController {
-    @Autowired
-    GradeService gradeService;
-    @Autowired
-    StudentService studentService;
+import java.util.List;
 
-    @GetMapping
-    public String gradesPage(Model model) {
-        model.addAttribute("students", studentService.getAllStudents(PageRequest.of(0, 10)).getContent());
-        return "grades/index";
+@RestController
+@RequestMapping("/api/grades")
+public class GradeController {
+
+
+    @Autowired
+    private GradeService gradeService;
+    @PostMapping
+    public ResponseEntity<GradeResponseDTO> saveGrade(@Valid @RequestBody GradeRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(gradeService.saveGrade(dto));
+    }
+
+    @PostMapping("/bulk")
+    public ResponseEntity<Void> saveBulk(@Valid @RequestBody List<GradeRequestDTO> dtos) {
+        gradeService.saveBulkGrades(dtos);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/student/{studentId}")
-    public String studentGrades(@PathVariable int studentId, Model model) {
-        model.addAttribute("grades", gradeService.getGradesByStudent(studentId));
-        model.addAttribute("studentId", studentId);
-        return "grades/student-grades";
+    public ResponseEntity<List<GradeResponseDTO>> getByStudent(@PathVariable int studentId) {
+        return ResponseEntity.ok(gradeService.getGradesByStudent(studentId));
     }
 
-    @PostMapping("/save")
-    public String saveGrade(@Valid @ModelAttribute GradeRequestDTO dto) {
-        gradeService.saveGrade(dto);
-        return "redirect:/grades/student/" + dto.getStudentId();
+    @GetMapping("/student/{studentId}/term/{term}")
+    public ResponseEntity<List<GradeResponseDTO>> getByStudentAndTerm(
+            @PathVariable int studentId, @PathVariable String term) {
+        return ResponseEntity.ok(gradeService.getGradesByStudentAndTerm(studentId, term));
+    }
+
+    @GetMapping("/student/{studentId}/average")
+    public ResponseEntity<Double> getAverage(@PathVariable int studentId, @RequestParam String term) {
+        return ResponseEntity.ok(gradeService.calculateAverage(studentId, term));
     }
 }

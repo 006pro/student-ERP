@@ -28,4 +28,6 @@ public class Users {
 
     @OneToOne
     private Teacher teacher;
+
+
 }

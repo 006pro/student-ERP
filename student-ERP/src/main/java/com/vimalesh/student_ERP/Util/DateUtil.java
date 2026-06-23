@@ -1,8 +1,10 @@
 package com.vimalesh.student_ERP.Util;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+@Component
 public class DateUtil {
     public static boolean isPast(LocalDate date) {
         return date.isBefore(LocalDate.now());

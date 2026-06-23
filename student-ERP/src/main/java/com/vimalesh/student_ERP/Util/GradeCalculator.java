@@ -1,4 +1,8 @@
 package com.vimalesh.student_ERP.Util;
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class GradeCalculator {
 
     public static String calculateGrade(double marks, double maxMarks) {

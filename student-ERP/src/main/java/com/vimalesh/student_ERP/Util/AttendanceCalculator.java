@@ -1,5 +1,8 @@
 package com.vimalesh.student_ERP.Util;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class AttendanceCalculator {
 
     public static double calculatePercentage(int presentDays, int totalDays) {

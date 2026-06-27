@@ -12,8 +12,8 @@ import com.vimalesh.student_ERP.Security.OAuth2SuccessHandler;
 import com.vimalesh.student_ERP.Service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -28,10 +28,10 @@ class AuthControllerTest {
     @Autowired MockMvc mockMvc;
     @Autowired ObjectMapper objectMapper;
 
-    @MockBean AuthService authService;
-    @MockBean JwtUtil jwtUtil;
-    @MockBean CustomUserDetailsService customUserDetailsService;
-    @MockBean OAuth2SuccessHandler oAuth2SuccessHandler;
+    @MockitoBean AuthService authService;
+    @MockitoBean JwtUtil jwtUtil;
+    @MockitoBean CustomUserDetailsService customUserDetailsService;
+    @MockitoBean OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Test
     void register_validRequest_returns201AndUserResponse() throws Exception {

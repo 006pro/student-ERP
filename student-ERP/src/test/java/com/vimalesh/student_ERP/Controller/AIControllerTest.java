@@ -9,8 +9,8 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -26,10 +26,10 @@ class AIControllerTest {
 
     @Autowired MockMvc mockMvc;
 
-    @MockBean OllamaChatModel ollamaChatModel;
-    @MockBean JwtUtil jwtUtil;
-    @MockBean CustomUserDetailsService customUserDetailsService;
-    @MockBean OAuth2SuccessHandler oAuth2SuccessHandler;
+    @MockitoBean OllamaChatModel ollamaChatModel;
+    @MockitoBean JwtUtil jwtUtil;
+    @MockitoBean CustomUserDetailsService customUserDetailsService;
+    @MockitoBean OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @BeforeEach
     void setUp() {

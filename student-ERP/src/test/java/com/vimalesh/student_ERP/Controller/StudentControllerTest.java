@@ -9,8 +9,8 @@ import com.vimalesh.student_ERP.Security.OAuth2SuccessHandler;
 import com.vimalesh.student_ERP.Service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
@@ -31,10 +31,10 @@ class StudentControllerTest {
     @Autowired MockMvc mockMvc;
     @Autowired ObjectMapper objectMapper;
 
-    @MockBean StudentService studentService;
-    @MockBean JwtUtil jwtUtil;
-    @MockBean CustomUserDetailsService customUserDetailsService;
-    @MockBean OAuth2SuccessHandler oAuth2SuccessHandler;
+    @MockitoBean StudentService studentService;
+    @MockitoBean JwtUtil jwtUtil;
+    @MockitoBean CustomUserDetailsService customUserDetailsService;
+    @MockitoBean OAuth2SuccessHandler oAuth2SuccessHandler;
 
     private StudentResponseDTO sampleResponse() {
         StudentResponseDTO dto = new StudentResponseDTO();

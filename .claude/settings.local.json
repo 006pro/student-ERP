@@ -13,7 +13,10 @@
       "PowerShell(Get-Content \"C:\\\\Users\\\\NEW\\\\AppData\\\\Local\\\\Temp\\\\erp-final.txt\" | Select-String \"Started|ERROR|Exception\" | Select-Object -Last 5 | ForEach-Object { $_.Line })",
       "PowerShell(netstat *)",
       "PowerShell(Start-Process -FilePath \"cmd.exe\" -ArgumentList \"/c set MAVEN_OPTS=-Djavax.net.ssl.trustStoreType=WINDOWS-ROOT && D:\\\\ERPSYS\\\\student-ERP\\\\student-ERP\\\\mvnw.cmd spring-boot:run > C:\\\\Users\\\\NEW\\\\AppData\\\\Local\\\\Temp\\\\erp-rbac.txt 2>&1\" -WorkingDirectory \"D:\\\\ERPSYS\\\\student-ERP\\\\student-ERP\" -NoNewWindow; Write-Host \"Starting...\")",
-      "PowerShell(Get-Content \"C:\\\\Users\\\\NEW\\\\AppData\\\\Local\\\\Temp\\\\erp-rbac.txt\" | Select-String \"Started|ERROR|Exception\" | Select-Object -Last 3 | ForEach-Object { $_.Line })"
+      "PowerShell(Get-Content \"C:\\\\Users\\\\NEW\\\\AppData\\\\Local\\\\Temp\\\\erp-rbac.txt\" | Select-String \"Started|ERROR|Exception\" | Select-Object -Last 3 | ForEach-Object { $_.Line })",
+      "Bash(jar tf *)",
+      "PowerShell(Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip = [System.IO.Compression.ZipFile]::OpenRead\\(\"C:\\\\Users\\\\NEW\\\\.m2\\\\repository\\\\org\\\\springframework\\\\boot\\\\spring-boot-test\\\\4.1.0\\\\spring-boot-test-4.1.0.jar\"\\); $zip.Entries | Select-Object FullName | Format-List; $zip.Dispose\\(\\))",
+      "PowerShell(Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip = [System.IO.Compression.ZipFile]::OpenRead\\(\"C:\\\\Users\\\\NEW\\\\.m2\\\\repository\\\\org\\\\springframework\\\\spring-test\\\\7.0.8\\\\spring-test-7.0.8.jar\"\\); $zip.Entries | Where-Object { $_.FullName -match \"MockitoBean|MockitoSpyBean|WebMvcTest\" } | Select-Object FullName; $zip.Dispose\\(\\))"
     ]
   }
 }

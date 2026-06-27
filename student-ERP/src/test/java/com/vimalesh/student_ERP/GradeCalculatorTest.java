@@ -1,5 +1,7 @@
-package com.vimalesh.student_ERP.Util;
+package com.vimalesh.student_ERP;
 
+import com.vimalesh.student_ERP.Util.GradeCalculator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +10,7 @@ class GradeCalculatorTest {
 
     @Test
     void calculateGrade_ninetyPercentOrAbove_returnsAPlus() {
-        assertEquals("A+", GradeCalculator.calculateGrade(90, 100));
+        Assertions.assertEquals("A+", GradeCalculator.calculateGrade(90, 100));
     }
 
     @Test

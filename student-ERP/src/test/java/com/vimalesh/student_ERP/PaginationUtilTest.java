@@ -1,5 +1,6 @@
-package com.vimalesh.student_ERP.Util;
+package com.vimalesh.student_ERP;
 
+import com.vimalesh.student_ERP.Util.PaginationUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

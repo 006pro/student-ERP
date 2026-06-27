@@ -1,5 +1,7 @@
-package com.vimalesh.student_ERP.Util;
+package com.vimalesh.student_ERP;
 
+import com.vimalesh.student_ERP.Util.DateUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -10,7 +12,7 @@ class DateUtilTest {
 
     @Test
     void isPast_pastDate_returnsTrue() {
-        assertTrue(DateUtil.isPast(LocalDate.now().minusDays(1)));
+        Assertions.assertTrue(DateUtil.isPast(LocalDate.now().minusDays(1)));
     }
 
     @Test

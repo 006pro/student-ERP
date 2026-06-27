@@ -1,5 +1,7 @@
-package com.vimalesh.student_ERP.Util;
+package com.vimalesh.student_ERP;
 
+import com.vimalesh.student_ERP.Util.AttendanceCalculator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +10,7 @@ class AttendanceCalculatorTest {
 
     @Test
     void calculatePercentage_zeroTotalDays_returnsZero() {
-        assertEquals(0.0, AttendanceCalculator.calculatePercentage(0, 0));
+        Assertions.assertEquals(0.0, AttendanceCalculator.calculatePercentage(0, 0));
     }
 
     @Test

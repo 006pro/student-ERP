@@ -1,6 +1,4 @@
--- DML Sample Data for Student ERP system (PostgreSQL)
--- Using ON CONFLICT DO NOTHING to avoid duplicate key errors on multiple restarts
--- and updating the primary key sequences accordingly.
+
 
 -- 1. Insert sample data for teacher
 INSERT INTO teacher (id, name, email, phone, subject) VALUES

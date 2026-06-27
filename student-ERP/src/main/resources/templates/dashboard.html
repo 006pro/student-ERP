@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1>Dashboard</h1>
+        <div class="card-row">
+            <div class="card">
+                <span class="card-label">Total Students</span>
+                <span class="card-value" th:text="${totalStudents}">0</span>
+            </div>
+            <div class="card">
+                <span class="card-label">Avg Attendance</span>
+                <span class="card-value" th:text="${avgAttendance} + '%'">0%</span>
+            </div>
+            <div class="card">
+                <span class="card-label">Pending Fees</span>
+                <span class="card-value" th:text="${pendingFeesCount}">0</span>
+            </div>
+        </div>
+        <div class="quick-links">
+            <a th:href="@{/students/add}" class="btn">+ Add Student</a>
+            <a th:href="@{/attendance}" class="btn">Mark Attendance</a>
+            <a th:href="@{/ai-insights}" class="btn">Ask AI</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

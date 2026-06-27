@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Form - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1 th:text="${studentId} != null ? 'Edit Student' : 'Add Student'">Add Student</h1>
+        <form th:action="${studentId} != null ? @{/students/update/{id}(id=${studentId})} : @{/students/save}"
+              th:object="${student}" method="post">
+
+            <label>Name</label>
+            <input type="text" th:field="*{name}" required />
+            <p class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+            <label>Roll No</label>
+            <input type="text" th:field="*{rollNo}" required />
+            <p class="field-error" th:if="${#fields.hasErrors('rollNo')}" th:errors="*{rollNo}"></p>
+
+            <label>Date of Birth</label>
+            <input type="date" th:field="*{dob}" />
+
+            <label>Class</label>
+            <select name="classRoomId" id="classRoomId" required>
+                <option value="">-- Select Class --</option>
+                <option th:each="c : ${classRooms}" th:value="${c.id}" th:text="${c.name} + '-' + ${c.section}"></option>
+            </select>
+
+            <label>Parent Contact</label>
+            <input type="text" th:field="*{parentContact}" />
+
+            <label>Address</label>
+            <textarea th:field="*{address}"></textarea>
+
+            <div class="form-actions">
+                <button type="submit">Save</button>
+                <a th:href="@{/students}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

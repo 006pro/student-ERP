@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Grades - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1>Grades</h1>
+
+        <table>
+            <thead><tr><th>Subject</th><th>Marks</th><th>Max</th><th>Grade</th><th>Term</th></tr></thead>
+            <tbody>
+            <tr th:each="g : ${grades}">
+                <td th:text="${g.subject}"></td>
+                <td th:text="${g.marks}"></td>
+                <td th:text="${g.maxMarks}"></td>
+                <td th:text="${g.grade}"></td>
+                <td th:text="${g.term}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${grades.isEmpty()}">No grades recorded yet.</p>
+
+        <h2>Add Grade</h2>
+        <form th:action="@{/grades/save}" th:object="${newGrade}" method="post">
+            <input type="hidden" th:field="*{studentId}" th:value="${studentId}" />
+
+            <label>Subject</label>
+            <input type="text" th:field="*{subject}" required />
+
+            <label>Marks</label>
+            <input type="number" th:field="*{marks}" step="0.5" required />
+
+            <label>Max Marks</label>
+            <input type="number" th:field="*{maxMarks}" step="0.5" required />
+
+            <label>Term</label>
+            <input type="text" th:field="*{term}" placeholder="e.g. Term 1" required />
+
+            <div class="form-actions">
+                <button type="submit">Save Grade</button>
+                <a th:href="@{/grades}" class="btn-cancel">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

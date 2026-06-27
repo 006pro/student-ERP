@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mark Attendance - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1>Mark Attendance — <span th:text="${date}"></span></h1>
+
+        <form th:action="@{/attendance/save}" method="post">
+            <input type="hidden" name="classRoomId" th:value="${classRoomId}" />
+            <input type="hidden" name="date" th:value="${date}" />
+
+            <table>
+                <thead>
+                <tr><th>Roll No</th><th>Name</th><th>Present</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.rollNo}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td>
+                        <input type="hidden" name="allStudentIds" th:value="${student.id}" />
+                        <input type="checkbox" name="presentStudentIds" th:value="${student.id}" checked />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p th:if="${students.isEmpty()}">No students found in this class.</p>
+
+            <div class="form-actions">
+                <button type="submit">Save Attendance</button>
+                <a th:href="@{/attendance}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Classroom Form - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1 th:text="${classroomId} != null ? 'Edit Classroom' : 'Add Classroom'">Add Classroom</h1>
+        <form th:action="${classroomId} != null ? @{/classrooms/update/{id}(id=${classroomId})} : @{/classrooms/save}"
+              th:object="${classroom}" method="post">
+
+            <label>Name</label>
+            <input type="text" th:field="*{name}" placeholder="e.g. 10th" required />
+
+            <label>Section</label>
+            <input type="text" th:field="*{section}" placeholder="e.g. A" required />
+
+            <label>Teacher (optional)</label>
+            <select th:field="*{teacherId}">
+                <option value="">-- None --</option>
+                <option th:each="t : ${teachers}" th:value="${t.id}" th:text="${t.name}"></option>
+            </select>
+
+            <div class="form-actions">
+                <button type="submit">Save</button>
+                <a th:href="@{/classrooms}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

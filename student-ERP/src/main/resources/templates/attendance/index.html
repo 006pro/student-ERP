@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1>Mark Attendance</h1>
+        <p class="success-msg" th:if="${success}">Attendance saved successfully.</p>
+
+        <form th:action="@{/attendance/mark}" method="get" class="search-bar">
+            <select name="classRoomId" required>
+                <option value="">-- Select Class --</option>
+                <option th:each="c : ${classRooms}" th:value="${c.id}" th:text="${c.name} + '-' + ${c.section}"></option>
+            </select>
+            <input type="date" name="date" required />
+            <button type="submit">Go</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Portal - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+        .card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
+        .card h2 { margin: 0 0 1rem; font-size: 1rem; color: #555; text-transform: uppercase; letter-spacing: .05em; }
+        .info-row { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 1px solid #f0f0f0; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #888; font-size: .9rem; }
+        .info-value { font-weight: 600; }
+        .badge { display: inline-block; padding: .2rem .6rem; border-radius: 12px; font-size: .8rem; font-weight: 600; }
+        .badge-present { background: #d4edda; color: #155724; }
+        .badge-absent  { background: #f8d7da; color: #721c24; }
+        .badge-late    { background: #fff3cd; color: #856404; }
+        .percent-circle { font-size: 2.5rem; font-weight: 700; text-align: center; margin: .5rem 0; }
+        .percent-circle span { font-size: 1rem; font-weight: 400; color: #888; }
+        .full-width { grid-column: 1 / -1; }
+        .alert-error { background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 6px; }
+        table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+        th, td { text-align: left; padding: .6rem .75rem; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: 600; color: #555; }
+    </style>
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1>My Portal</h1>
+
+        <div th:if="${error}" class="alert-error" th:text="${error}"></div>
+
+        <div th:if="${student}" class="portal-grid">
+
+            <!-- Profile -->
+            <div class="card">
+                <h2>My Profile</h2>
+                <div class="info-row">
+                    <span class="info-label">Name</span>
+                    <span class="info-value" th:text="${student.name}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Roll No</span>
+                    <span class="info-value" th:text="${student.rollNo}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Date of Birth</span>
+                    <span class="info-value" th:text="${student.dob}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Address</span>
+                    <span class="info-value" th:text="${student.address ?: '-'}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Parent Contact</span>
+                    <span class="info-value" th:text="${student.parentContact ?: '-'}"></span>
+                </div>
+            </div>
+
+            <!-- Classroom & Teacher -->
+            <div class="card" th:if="${classroom != null}">
+                <h2>Classroom &amp; Teacher</h2>
+                <div class="info-row">
+                    <span class="info-label">Class</span>
+                    <span class="info-value" th:text="${classroom.name}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Section</span>
+                    <span class="info-value" th:text="${classroom.section}"></span>
+                </div>
+                <div th:if="${classroom.teacher != null}">
+                    <div class="info-row">
+                        <span class="info-label">Teacher</span>
+                        <span class="info-value" th:text="${classroom.teacher.name}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Teacher Email</span>
+                        <span class="info-value" th:text="${classroom.teacher.email}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Subject</span>
+                        <span class="info-value" th:text="${classroom.teacher.subject}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card" th:if="${classroom == null}">
+                <h2>Classroom &amp; Teacher</h2>
+                <p style="color:#888">Not assigned to a classroom yet.</p>
+            </div>
+
+            <!-- Attendance Summary -->
+            <div class="card">
+                <h2>Attendance</h2>
+                <div class="percent-circle"
+                     th:text="${#numbers.formatDecimal(attendancePercent, 1, 1) + '%'}">--</div>
+                <p style="text-align:center;color:#888;margin:0">Overall attendance</p>
+            </div>
+
+            <!-- Grades full-width -->
+            <div class="card full-width">
+                <h2>My Grades</h2>
+                <div th:if="${#lists.isEmpty(grades)}">
+                    <p style="color:#888">No grades recorded yet.</p>
+                </div>
+                <table th:if="${!#lists.isEmpty(grades)}">
+                    <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Term</th>
+                        <th>Marks</th>
+                        <th>Max Marks</th>
+                        <th>Percentage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="g : ${grades}">
+                        <td th:text="${g.subject}"></td>
+                        <td th:text="${g.term}"></td>
+                        <td th:text="${g.marks}"></td>
+                        <td th:text="${g.maxMarks}"></td>
+                        <td th:text="${#numbers.formatDecimal(g.marks / g.maxMarks * 100, 1, 1) + '%'}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Attendance Records full-width -->
+            <div class="card full-width">
+                <h2>Attendance Records</h2>
+                <div th:if="${#lists.isEmpty(attendance)}">
+                    <p style="color:#888">No attendance records found.</p>
+                </div>
+                <table th:if="${!#lists.isEmpty(attendance)}">
+                    <thead>
+                    <tr><th>Date</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="a : ${attendance}">
+                        <td th:text="${a.date}"></td>
+                        <td>
+                            <span th:classappend="${a.status.name() == 'PRESENT' ? 'badge-present' : (a.status.name() == 'ABSENT' ? 'badge-absent' : 'badge-late')}"
+                                  class="badge"
+                                  th:text="${a.status}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

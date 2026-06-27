@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Insights - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1>Ask the ERP</h1>
+
+        <div class="chip-row">
+            <button class="chip" onclick="askQuick('Which students have attendance below 75%?')">Below 75% attendance</button>
+            <button class="chip" onclick="loadAtRisk()">At-risk students</button>
+        </div>
+
+        <div id="chat-box" class="chat-box"></div>
+
+        <div class="ai-input-row">
+            <input type="text" id="question" placeholder="Type a question about student data..." />
+            <button onclick="askAI()">Ask</button>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/ai.js}"></script>
+</body>
+</html>

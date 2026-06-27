@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fees - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <h1>Fees</h1>
+
+        <h2>Pending</h2>
+        <table>
+            <thead><tr><th>Student</th><th>Amount</th><th>Due Date</th><th>Action</th></tr></thead>
+            <tbody>
+            <tr th:each="f : ${pendingFees}">
+                <td th:text="${f.studentName}"></td>
+                <td th:text="${f.amount}"></td>
+                <td th:text="${f.dueDate}"></td>
+                <td>
+                    <form th:action="@{/fees/pay/{id}(id=${f.id})}" method="post">
+                        <button type="submit">Mark as Paid</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${pendingFees.isEmpty()}">No pending fees.</p>
+
+        <h2>Overdue</h2>
+        <table>
+            <thead><tr><th>Student</th><th>Amount</th><th>Due Date</th><th>Action</th></tr></thead>
+            <tbody>
+            <tr th:each="f : ${overdueFees}">
+                <td th:text="${f.studentName}"></td>
+                <td th:text="${f.amount}"></td>
+                <td th:text="${f.dueDate}"></td>
+                <td>
+                    <form th:action="@{/fees/pay/{id}(id=${f.id})}" method="post">
+                        <button type="submit">Mark as Paid</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${overdueFees.isEmpty()}">No overdue fees.</p>
+
+        <h2>Create Fee Record</h2>
+        <form th:action="@{/fees/create}" th:object="${newFee}" method="post">
+            <label>Student</label>
+            <select name="studentId" id="studentId" required>
+                <option value="">-- Select Student --</option>
+                <option th:each="s : ${students}" th:value="${s.id}" th:text="${s.name} + ' (' + ${s.rollNo} + ')'"></option>
+            </select>
+
+            <label>Amount</label>
+            <input type="number" th:field="*{amount}" step="0.01" required />
+
+            <label>Due Date</label>
+            <input type="date" th:field="*{dueDate}" required />
+
+            <button type="submit">Create Fee Record</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

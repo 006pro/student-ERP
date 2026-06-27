@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Autowired
@@ -30,14 +29,50 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/register",
+                                "/oauth2/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**"
+                        ).permitAll()
+
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/students/**", "/api/teachers/**").hasAnyRole("ADMIN", "TEACHER")
-                        .requestMatchers("/api/fees/**").hasRole("ADMIN")
+
+                        .requestMatchers("/swagger-ui/**",
+                                "/v3/api-docs/**").permitAll()
+
+                        // MVC view routes
+                        .requestMatchers("/student-portal/**")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers("/students/**", "/attendance/**", "/grades/**")
+                        .hasAnyRole("ADMIN", "TEACHER")
+
+                        .requestMatchers("/teachers/**", "/classrooms/**", "/fees/**")
+                        .hasRole("ADMIN")
+
+                        // REST API routes
+                        .requestMatchers("/api/students/**", "/api/teachers/**")
+                        .hasAnyRole("ADMIN", "TEACHER")
+
+                        .requestMatchers("/api/fees/**")
+                        .hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2Login(oauth -> oauth.successHandler(oAuth2SuccessHandler))
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/login")
+                        .successHandler(oAuth2SuccessHandler))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .deleteCookies("jwt_token")
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

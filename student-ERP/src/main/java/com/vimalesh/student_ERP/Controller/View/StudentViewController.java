@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/students")
 public class StudentViewController {
+
 @Autowired
     private StudentService studentService;
     @Autowired
@@ -37,6 +38,7 @@ public class StudentViewController {
     public String editForm(@PathVariable int id, Model model) {
         StudentResponseDTO student = studentService.getStudentById(id);
         model.addAttribute("student", student);
+        model.addAttribute("studentId", id);
         model.addAttribute("classRooms", classRoomService.getAllClassRooms());
         return "students/form";
     }
@@ -57,6 +59,7 @@ public class StudentViewController {
                          BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("classRooms", classRoomService.getAllClassRooms());
+            model.addAttribute("studentId", id);
             return "students/form";
         }
         studentService.updateStudent(id, dto);

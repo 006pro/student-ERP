@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students - Student ERP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/base :: header}"></div>
+<div class="layout">
+    <div th:replace="~{layout/base :: sidebar}"></div>
+    <div class="content">
+        <div class="page-header">
+            <h1>Students</h1>
+            <a th:href="@{/students/add}" class="btn">+ Add Student</a>
+        </div>
+        <form th:action="@{/students/search}" method="get" class="search-bar">
+            <input type="text" name="keyword" placeholder="Search by name..." />
+            <button type="submit">Search</button>
+        </form>
+        <table>
+            <thead>
+            <tr><th>Roll No</th><th>Name</th><th>Class</th><th>Attendance %</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.rollNo}"></td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.className} + '-' + ${student.section}"></td>
+                <td th:text="${student.attendancePercentage} + '%'"></td>
+                <td>
+                    <a th:href="@{/students/edit/{id}(id=${student.id})}">Edit</a>
+                    <form th:action="@{/students/delete/{id}(id=${student.id})}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Delete this student?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${students.isEmpty()}">No students found.</p>
+    </div>
+</div>
+</body>
+</html>

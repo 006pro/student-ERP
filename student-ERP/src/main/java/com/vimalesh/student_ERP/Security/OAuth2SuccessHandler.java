@@ -39,7 +39,12 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-//        response.getWriter().write(token);
-  response.sendRedirect("/dashboard?token=" + token);
+
+        jakarta.servlet.http.Cookie cookie = new jakarta.servlet.http.Cookie("jwt_token", token);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(86400);
+        response.addCookie(cookie);
+        response.sendRedirect("/dashboard");
     }
 }
